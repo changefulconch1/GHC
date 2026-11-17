@@ -984,9 +984,22 @@
  if(!arriving){cover.remove();return;}
  document.documentElement.style.background='#02050c';
  document.body.style.backgroundColor='#02050c';
- // Let the destination page paint beneath the dark cover, then open the aperture.
- requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(()=>cover.classList.add('reveal'),220)));
- setTimeout(()=>cover.remove(),2050);
+ // Do not reveal a half-initialized page. Wait for the document load event,
+ // then allow two paint frames before opening the aperture.
+ let revealed=false;
+ const revealWhenReady=()=>{
+   if(revealed)return;
+   revealed=true;
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{
+     cover.classList.add('reveal');
+     setTimeout(()=>cover.remove(),1800);
+   }));
+ };
+ if(document.readyState==='complete') revealWhenReady();
+ else window.addEventListener('load',revealWhenReady,{once:true});
+ // Keep the animated cover alive if a third-party CDN is unusually slow.
+ // This is a failsafe only; normally the load event reveals the page first.
+ setTimeout(revealWhenReady,9000);
 })();
 </script>
 </body>

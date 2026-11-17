@@ -286,7 +286,59 @@ body.launching .center .telemetry{
 @keyframes hud-eject{0%{opacity:0;translate:0 12px}12%{opacity:1;translate:0 0}68%{opacity:.8;translate:0 -5px}100%{opacity:0;translate:0 -24px}}
 @media(max-width:650px){#transition .cinema-readout{top:5%;font-size:8px}#transition .cinema-readout-left{left:4%}#transition .cinema-readout-right{right:4%}#transition .cinema-bottom{font-size:7px;letter-spacing:.12em}}
 
+
+/* FINAL TYPE FIX: HYPERLOOP is white, crisp and readable — no cyan pulse. */
+.center h1 .title-cyan{
+  background-image:linear-gradient(180deg,#ffffff 0%,#f5fbff 48%,#dce8ef 100%) !important;
+  color:#fff !important;
+  -webkit-text-fill-color:transparent !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-stroke:1px rgba(255,255,255,.48);
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.65)) !important;
+  animation:ghc-line-arrive 1.05s .12s both !important;
+  background-size:100% 100% !important;
+}
+.center h1 .title-cyan:after{display:none !important}
+.center h1{filter:none !important}
+@keyframes ghc-line-arrive{
+  0%{opacity:0;transform:translateY(18px) scale(.97)}
+  70%{opacity:1;transform:translateY(-2px) scale(1.005)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+
+/* FRAME-PACING FIX: one animation owner during launch, no full-screen filter stack. */
+#transition{
+  clip-path:none !important;
+  transform:translateZ(0);
+  contain:strict;
+  background:#010713 !important;
+  transition:opacity .42s ease-out !important;
+  will-change:opacity;
+}
+#transition.go{clip-path:none !important;opacity:1}
+#launch-cinema{image-rendering:auto;transform:translateZ(0);will-change:contents}
+body.launching #scene{filter:none !important;opacity:0 !important;transition:opacity .3s ease !important}
+body.launching .ui{filter:none !important;transform:scale(1.025);transition:transform 3.2s cubic-bezier(.16,.72,.18,1) !important}
+body.launching #logo-particles{animation:insignia-launch 2.4s .12s cubic-bezier(.16,.72,.16,1) forwards !important;filter:none !important}
+#transition .cinema-crosshair,#transition .cinema-readout,#transition .cinema-bottom,
+#transition .warp-grid,#transition .warp-core,#transition .warp-scan{backface-visibility:hidden;transform:translateZ(0)}
+
 </style>
+
+<!-- Warm the destination page during the intro so navigation is not a cold load. -->
+<link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="prefetch" href="home.html" as="document">
+<link rel="prefetch" href="css/styles.css" as="style">
+<link rel="prefetch" href="js/audio-engine.js" as="script">
+<link rel="prefetch" href="js/content-data.js" as="script">
+<link rel="prefetch" href="js/scroll-hyperloop.js" as="script">
+<link rel="prefetch" href="js/app.js" as="script">
+<link rel="prefetch" href="assets/ghc-logo.png" as="image">
+
 </head>
 <body>
 <canvas id="scene" aria-label="Animated 3D hyperloop tunnel"></canvas><canvas id="logo-particles" aria-hidden="true"></canvas><div class="vignette"></div><div class="scanlines"></div>
@@ -373,6 +425,10 @@ body.launching .center .telemetry{
    }
  }
  function drawLogoParticles(){
+   if(document.body.classList.contains('launching')){
+     if(logoCtx)logoCtx.clearRect(0,0,logoCanvas.clientWidth,logoCanvas.clientHeight);
+     return;
+   }
    logoFrame=requestAnimationFrame(drawLogoParticles);
    const w=logoCanvas.clientWidth,h=logoCanvas.clientHeight;
    if(!w||!h||!logoCtx)return;
@@ -538,6 +594,7 @@ body.launching .center .telemetry{
    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));
    const stars=new THREE.Points(geo,new THREE.PointsMaterial({color:0x66dfff,size:.045,transparent:true,opacity:.8}));scene.add(stars);
    function render(){
+    if(launching)return; // hand the GPU to the dedicated launch canvas
     raf=requestAnimationFrame(render);const t=clock.getElapsedTime();
     // Continuous travel: the tunnel and particle field loop forever instead of
     // reaching a capped distance and freezing.
@@ -568,26 +625,29 @@ body.launching .center .telemetry{
  const cinema=document.getElementById('launch-cinema');
  const cinemaCtx=cinema?cinema.getContext('2d',{alpha:true}):null;
  let cinemaRAF=0, cinemaStart=0, cinemaW=0, cinemaH=0, cinemaDpr=1;
- const cinemaStars=Array.from({length:190},()=>({
+ const cinemaStars=Array.from({length:105},()=>({
    x:Math.random()*2-1,y:Math.random()*2-1,z:Math.random(),
    speed:.25+Math.random()*.8,seed:Math.random()*Math.PI*2
  }));
- const cinemaDust=Array.from({length:145},()=>({
+ const cinemaDust=Array.from({length:76},()=>({
    a:Math.random()*Math.PI*2,r:.12+Math.random()*.9,
    speed:(.25+Math.random()*.85)*(Math.random()<.5?-1:1),
    size:.5+Math.random()*1.6,phase:Math.random()*6.28
  }));
  function resizeCinema(){
    if(!cinema||!cinemaCtx)return;
-   cinemaDpr=Math.min(devicePixelRatio||1,1.35);
+   cinemaDpr=1;
    cinemaW=innerWidth;cinemaH=innerHeight;
    cinema.width=Math.round(cinemaW*cinemaDpr);
    cinema.height=Math.round(cinemaH*cinemaDpr);
    cinema.style.width=cinemaW+'px';cinema.style.height=cinemaH+'px';
    cinemaCtx.setTransform(cinemaDpr,0,0,cinemaDpr,0,0);
  }
+ let lastCinemaFrame=0;
  function drawCinema(now){
    if(!launching||!cinemaCtx)return;
+   if(now-lastCinemaFrame<24){cinemaRAF=requestAnimationFrame(drawCinema);return;}
+   lastCinemaFrame=now;
    const ctx=cinemaCtx,w=cinemaW,h=cinemaH,cx=w*.5,cy=h*.49;
    const elapsed=(now-cinemaStart)/1000, p=Math.min(1,elapsed/4.15);
    const ease=p*p*(3-2*p), acceleration=1+Math.pow(p,2.4)*13;
@@ -602,8 +662,8 @@ body.launching .center .telemetry{
    ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
 
    // Perspective corridor: receding rings expand toward the viewer.
-   for(let i=0;i<13;i++){
-     const z=((i/13+elapsed*(.18+acceleration*.035))%1);
+   for(let i=0;i<9;i++){
+     const z=((i/9+elapsed*(.18+acceleration*.035))%1);
      const scale=.025+z*z*1.38;
      const rx=w*.12*scale,ry=h*.17*scale;
      ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
@@ -629,8 +689,8 @@ body.launching .center .telemetry{
 
    // Radial warp streaks: all drawn as a single path batch.
    ctx.beginPath();
-   for(let i=0;i<84;i++){
-     const a=(i/84)*Math.PI*2;
+   for(let i=0;i<54;i++){
+     const a=(i/54)*Math.PI*2;
      const inner=18+((i*37)%75), outer=Math.max(w,h)*(.18+((i*19)%100)/125);
      const phase=(elapsed*(.55+acceleration*.08)+i*.137)%1;
      const r1=inner+phase*outer*.28,r2=r1+outer*(.12+phase*.24);
@@ -716,8 +776,12 @@ body.launching .center .telemetry{
    // Keep rendering during the launch so the tunnel visibly accelerates.
    const overlay=document.getElementById('transition');
    try{sessionStorage.setItem('ghc-arriving-from-intro','1');}catch(e){}
-   overlay.classList.add('go');startCinema();
-   // Full cinematic launch: let the HUD, particle burst, tunnel and portal sequence play.
+   overlay.classList.add('go');
+   if(raf)cancelAnimationFrame(raf);
+   startCinema();
+   // The destination resources have been warming in the background since page load.
+   // Preserve the cinematic duration, then hand off; home.html keeps its arrival cover
+   // in place until its own load event, preventing a half-rendered page from flashing.
    setTimeout(()=>{cancelAnimationFrame(cinemaRAF);location.href='home.html';},4200);
  }
  document.getElementById('enter').addEventListener('click',launchToHome);
