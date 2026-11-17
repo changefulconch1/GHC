@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#030712"><title>Teams | GHC IIT Madras</title><link rel="icon" href="assets/ghc-logo.png"><style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap');
+:root{--cyan:#00e5ff;--blue:#0066ff;--bg:#030712}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#0a2540 0,transparent 42%),#030712;color:#f8fafc;font-family:'Space Grotesk',sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}.mono{font-family:'JetBrains Mono',monospace}.display{font-family:Anton,sans-serif;text-transform:uppercase}
+.site-header{position:sticky;top:0;z-index:20;background:#030712e8;border-bottom:1px solid #00e5ff33;backdrop-filter:blur(18px)}
+.header-inner{max-width:1180px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;font:16px Anton,sans-serif;letter-spacing:.06em}.brand img{width:42px;height:42px;object-fit:contain}
+.nav{display:flex;gap:22px;flex-wrap:wrap;font:10px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#a8bdca}
+.nav a:hover,.nav a.active{color:var(--cyan)}
+.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
+.hero{padding:100px 0 55px}.eyebrow{font:10px 'JetBrains Mono',monospace;letter-spacing:.28em;color:var(--cyan);text-transform:uppercase}
+h1{font:clamp(48px,8vw,90px)/.92 Anton,sans-serif;text-transform:uppercase;letter-spacing:-.025em;margin:18px 0}
+h1 span,.cyan{color:var(--cyan)}.lead{max-width:720px;color:#b5c5d2;line-height:1.8;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:34px 0 80px}
+.card{padding:24px;border:1px solid #00d9ff36;background:linear-gradient(145deg,#0a1729dd,#050b16dd);border-radius:18px;box-shadow:0 15px 45px #0003;transition:.25s}
+.card:hover{transform:translateY(-5px);border-color:#00e5ff9a;box-shadow:0 15px 40px #00aaff18}
+.card h2,.card h3{font:24px Anton,sans-serif;text-transform:uppercase;margin:8px 0;color:#fff}
+.card p{font-size:13px;color:#9fb2c1;line-height:1.7}.tag{font:9px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.list{padding-left:18px;color:#b6c8d5;font-size:13px;line-height:1.9}
+.btn{display:inline-block;margin-top:20px;padding:14px 20px;background:linear-gradient(100deg,var(--cyan),#167aff);color:#00121b;font:700 10px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
+.footer{border-top:1px solid #00e5ff25;padding:25px 20px;color:#70899a;font:10px 'JetBrains Mono',monospace;text-align:center}
+@media(max-width:700px){.header-inner{align-items:flex-start;flex-direction:column}.nav{gap:13px}.hero{padding-top:65px}}
+</style></head><body><header class="site-header"><div class="header-inner">
+<a class="brand" href="home.html"><img src="assets/ghc-logo.png" alt="GHC logo"><span>GLOBAL HYPERLOOP<br><small class="mono cyan">IIT MADRAS</small></span></a>
+<nav class="nav" aria-label="Main navigation">
+<a href="home.html">Home</a><a href="about.html">About</a><a href="events.html">Events</a><a href="categories.html">Categories</a><a href="teams.html">Teams</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+</nav></div></header><main class="wrap"><section class="hero"><div class="eyebrow">The Hyperloop ecosystem</div><h1>ENGINEERING <span>TOGETHER.</span></h1><p class="lead">Meet the teams and collaborators contributing to the Hyperloop ecosystem. Team details below are taken from the site’s supplied content registry.</p></section><div id="team-list" class="grid"><div class="card">Loading teams…</div></div>
+<script src="js/content-data.js"></script><script>
+const list=document.getElementById('team-list');
+const items=window.GHC_DATA?.associatedTeams||[];
+list.innerHTML=items.map((t,i)=>`<article class="card"><div class="tag">TEAM ${String(i+1).padStart(2,'0')} / ${t.founded||''}</div><h2>${t.name}</h2><p>${t.institution}</p><p><strong class="cyan">${t.domain}</strong></p><p>${t.highlights}</p>${t.link?`<a class="btn" href="${t.link}" target="_blank" rel="noopener">Team website ↗</a>`:''}</article>`).join('');
+</script></main><footer class="footer">GLOBAL HYPERLOOP COMPETITION · IIT MADRAS · <a class="cyan" href="index.html">REPLAY INTRO ↗</a></footer></body></html>

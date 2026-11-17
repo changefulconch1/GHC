@@ -1,428 +1,727 @@
-
-<!-- ========== GHC CINEMATIC INTRO ========== -->
-<div id="ghc-intro">
-  <div class="ghc-grid"></div>
-  <div class="ghc-glow"></div>
-
-  <div class="ghc-top">
-    <span>GHC // IIT MADRAS</span>
-    <span id="ghc-status">SYSTEM INITIALIZING...</span>
-  </div>
-
-  <div class="ghc-tunnel">
-    <div class="ghc-ring ring1"></div>
-    <div class="ghc-ring ring2"></div>
-    <div class="ghc-ring ring3"></div>
-    <div class="ghc-ring ring4"></div>
-    <div class="ghc-ring ring5"></div>
-    <div class="ghc-ring ring6"></div>
-
-    <div class="ghc-pod">
-      <svg viewBox="0 0 300 100" width="300">
-        <defs>
-          <linearGradient id="podPaint" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#ffffff"/>
-            <stop offset="45%" stop-color="#9ceaff"/>
-            <stop offset="100%" stop-color="#1674c9"/>
-          </linearGradient>
-        </defs>
-        <path d="M15 54 Q50 14 150 20 L255 37 Q286 43 296 55
-          Q278 72 235 75 L62 78 Q25 76 15 54Z"
-          fill="url(#podPaint)" stroke="#8ceaff" stroke-width="2"/>
-        <path d="M85 37 Q130 23 191 35 L228 48 L75 48Z"
-          fill="#102d48" stroke="#49caff" stroke-width="2"/>
-        <path d="M25 60 L275 60" stroke="#36d9ff" stroke-width="2"/>
-        <path d="M35 68 L4 72 M50 74 L0 83"
-          stroke="#26cfff" stroke-width="3" opacity=".8"/>
-        <circle cx="260" cy="55" r="5" fill="#fff"/>
-      </svg>
-      <div class="ghc-engine"></div>
-    </div>
-
-    <div class="ghc-speed speed1"></div>
-    <div class="ghc-speed speed2"></div>
-    <div class="ghc-speed speed3"></div>
-  </div>
-
-  <div class="ghc-content">
-    <div class="ghc-eyebrow">
-      <span class="ghc-dot"></span>
-      THE FUTURE OF TRANSPORTATION
-    </div>
-
-    <h1>
-      GLOBAL<br>
-      <span>HYPERLOOP</span><br>
-      CHAMPIONSHIP
-    </h1>
-
-    <p class="ghc-subtitle">
-      ENGINEERING THE FIFTH MODE OF TRANSPORT.
-      <br>HOSTED BY IIT MADRAS.
-    </p>
-
-    <div class="ghc-divider"></div>
-
-    <div class="ghc-stats">
-      <div><strong>422M</strong><small>VACUUM TRACK</small></div>
-      <div><strong>MACH 1.0</strong><small>TARGET SPEED</small></div>
-      <div><strong>2027</strong><small>CHAMPIONSHIP</small></div>
-    </div>
-
-    <button id="ghc-enter">
-      <span>ENTER GHC</span>
-      <span class="ghc-arrow">→</span>
-    </button>
-
-    <div class="ghc-hint">CLICK TO ENTER THE FUTURE</div>
-  </div>
-
-  <div class="ghc-bottom">
-    <span>12.825° N / 80.198° E</span>
-    <span>THAIYUR · IIT MADRAS · INDIA</span>
-    <span>GHC 2027 ©</span>
-  </div>
-</div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030712">
+<meta name="description" content="Enter the Global Hyperloop Competition at IIT Madras.">
+<title>GHC // Enter the Future</title>
+<link rel="icon" href="assets/ghc-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-#ghc-intro {
-  --cyan: #39d9ff;
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  overflow: hidden;
-  background: #03070e;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  isolation: isolate;
-  transition: opacity 1s ease, transform 1.1s ease;
+:root{--cyan:#00e5ff;--blue:#0066ff;--bg:#030712}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:#fff;font-family:'Space Grotesk',sans-serif}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block}
+.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 20%,rgba(0,3,12,.35) 65%,#02040a 110%);z-index:1}
+.scanlines{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.11;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(150,220,255,.13) 4px)}
+.ui{position:relative;z-index:3;width:100%;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(18px,4vw,54px)}
+.top,.bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;font:10px 'JetBrains Mono',monospace;letter-spacing:.18em;color:#83a7ba;text-transform:uppercase}
+.brand{display:flex;align-items:center;gap:12px}.brand img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 0 14px #00cfff88)}
+.live{color:var(--cyan);display:flex;align-items:center;gap:9px}.live:before{content:"";width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 12px var(--cyan);animation:pulse 1s infinite}
+.center{width:min(900px,100%);margin:auto;text-align:center;padding:24px 0 38px;pointer-events:none}
+.kicker{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.38em;color:var(--cyan);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:rise .8s .4s forwards}
+h1{font:clamp(48px,10vw,124px)/.84 Anton,sans-serif;letter-spacing:-.035em;margin:0;text-transform:uppercase;text-shadow:0 0 35px #00bfff22;opacity:0;animation:rise 1s .65s forwards}
+h1 span{display:block;color:var(--cyan);text-shadow:0 0 35px #00cfff66}
+.subtitle{font:clamp(10px,1.3vw,13px) 'JetBrains Mono',monospace;letter-spacing:.2em;line-height:2;color:#a5bdcc;margin:24px auto 0;opacity:0;animation:rise .8s 1s forwards}
+.actions{pointer-events:auto;margin-top:36px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;opacity:0;animation:rise .8s 1.2s forwards}
+button,.secondary{font:700 11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;padding:16px 22px;border:1px solid #00d9ff88;background:linear-gradient(110deg,#00e5ff,#1681ff);color:#00101a;cursor:pointer;text-decoration:none;transition:.25s;box-shadow:0 0 28px #00cfff38}
+button:hover,.secondary:hover{transform:translateY(-3px);box-shadow:0 0 42px #00cfff88;background:#fff}
+.secondary{background:#071321aa;color:#d9f7ff;border-color:#6bdfff55;box-shadow:none}
+.telemetry{display:flex;gap:clamp(14px,4vw,48px);justify-content:center;margin-top:28px;opacity:0;animation:rise .8s 1.35s forwards}
+.metric{display:flex;flex-direction:column;gap:5px}.metric strong{font:700 17px 'JetBrains Mono',monospace;color:#fff}.metric small{font:9px 'JetBrains Mono',monospace;color:#7595a9;letter-spacing:.13em}
+.bottom span:last-child{color:#5b8097}.hint{position:absolute;bottom:78px;left:50%;transform:translateX(-50%);font:9px 'JetBrains Mono',monospace;letter-spacing:.18em;color:#66899e;white-space:nowrap;animation:pulse 2s infinite}
+#loading{position:fixed;z-index:4;inset:auto 0 0;height:3px;background:#0b1b2b}#loadbar{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 15px var(--cyan);transition:width .2s}
+#transition{position:fixed;z-index:10;inset:0;opacity:0;pointer-events:none;overflow:hidden;
+  background:radial-gradient(circle at 50% 50%,#0b3150 0%,#030712 42%,#000 100%);
+  clip-path:circle(0% at 50% 50%);transition:clip-path 1.15s cubic-bezier(.7,0,.15,1),opacity .25s}
+#transition.go{opacity:1;clip-path:circle(150% at 50% 50%)}
+#transition:before,#transition:after{content:"";position:absolute;left:50%;top:50%;width:42vmin;height:42vmin;
+  border:2px solid #35ddff; border-radius:50%;transform:translate(-50%,-50%) scale(.2);
+  box-shadow:0 0 35px #00cfff, inset 0 0 35px #00cfff55;opacity:0}
+#transition.go:before{animation:warpRing .95s ease-out forwards}
+#transition.go:after{animation:warpRing 1.2s .12s ease-out forwards;border-width:1px}
+#transition .warp-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:#baf6ff;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.35em;white-space:nowrap;
+  text-shadow:0 0 20px #00cfff;opacity:0}
+#transition.go .warp-label{animation:warpText 1.9s .25s forwards}
+body.launching .ui{filter:brightness(1.65) contrast(1.2);transform:scale(1.07);transition:transform 1.9s cubic-bezier(.15,.8,.2,1),filter .9s}
+body.launching .center h1{text-shadow:0 0 35px #00e5ff99,0 0 90px #007bff88}
+body.launching .subtitle,body.launching .kicker,body.launching .top,body.launching .bottom{color:#fff;text-shadow:0 0 14px #00cfff88}
+body.launching #scene{filter:brightness(1.9) saturate(1.7);transition:filter 1.5s ease}
+@keyframes warpRing{0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(5)}}
+@keyframes warpText{0%{opacity:0;letter-spacing:.8em}30%{opacity:1}100%{opacity:0;letter-spacing:.15em}}
+
+@keyframes rise{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(22px)}}
+@keyframes pulse{50%{opacity:.35}}
+
+/* Particle-built GHC insignia: a short cinematic reveal above the title */
+#logo-particles{position:fixed;z-index:2;top:clamp(82px,10vh,112px);left:50%;width:clamp(170px,22vw,250px);height:clamp(170px,22vw,250px);transform:translateX(-50%);pointer-events:none;filter:drop-shadow(0 0 22px #00bfffcc);opacity:1;animation:insignia-in 1.1s .08s ease-out both}
+@keyframes insignia-in{0%{opacity:0;transform:translateX(-50%) scale(.55);filter:blur(8px) drop-shadow(0 0 0 #00bfff)}65%{opacity:1;filter:blur(0) drop-shadow(0 0 22px #00bfffbb)}100%{opacity:1;transform:translateX(-50%) scale(1)}}
+body.launching #logo-particles{animation:insignia-launch 1.45s .35s ease-in forwards}
+@keyframes insignia-launch{to{opacity:0;transform:translateX(-50%) scale(1.8);filter:blur(12px) drop-shadow(0 0 40px #00e5ff)}}
+@media(max-height:700px){#logo-particles{width:150px;height:150px;top:62px}.center{padding-top:12px;padding-bottom:22px}.actions{margin-top:20px}.subtitle{margin-top:14px}}
+@media(prefers-reduced-motion:reduce){#logo-particles{opacity:1;animation:none}}
+
+/* High-contrast animated headline: bright base colours stay readable throughout the sweep. */
+.center h1{
+  position:relative;
+  animation:rise 1s .65s forwards, ghc-title-glow 2.6s 1.65s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px rgba(0,205,255,.24));
+}
+.center h1 .title-line{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:0 auto;
+  color:#fff;
+  -webkit-text-fill-color:transparent;
+  -webkit-background-clip:text;
+  background-clip:text;
+  background-size:300% 100%;
+  background-position:200% 50%;
+  -webkit-text-stroke:.45px rgba(225,250,255,.45);
+  animation:ghc-text-sweep 3.2s 1.3s linear infinite, ghc-line-arrive .95s both;
+  will-change:background-position,filter,transform;
+}
+.center h1 .title-white{
+  background-image:linear-gradient(100deg,
+    #ffffff 0%,#ffffff 36%,#dffaff 43%,#ffffff 49%,#b8f5ff 53%,#ffffff 59%,#ffffff 100%);
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.85));
+}
+.center h1 .title-cyan{
+  background-image:linear-gradient(100deg,
+    #00dfff 0%,#00dfff 34%,#7df5ff 43%,#ffffff 49%,#bafaff 53%,#00dfff 62%,#00c5ff 100%);
+  filter:drop-shadow(0 0 5px #00dfff) drop-shadow(0 2px 3px rgba(0,0,0,.9));
+  animation:ghc-text-sweep 2.7s 1.05s linear infinite, ghc-line-arrive 1.05s .12s both, ghc-cyan-pulse 2s 1.8s ease-in-out infinite;
+}
+@keyframes ghc-text-sweep{
+  0%{background-position:200% 50%}
+  100%{background-position:-100% 50%}
+}
+@keyframes ghc-line-arrive{
+  0%{opacity:0;filter:blur(12px);transform:translateY(22px) scale(.95);letter-spacing:.1em}
+  65%{opacity:1;filter:blur(0);transform:translateY(-2px) scale(1.01)}
+  100%{opacity:1;transform:translateY(0) scale(1);letter-spacing:inherit}
+}
+@keyframes ghc-title-glow{
+  0%,100%{filter:drop-shadow(0 0 8px rgba(0,207,255,.2))}
+  50%{filter:drop-shadow(0 0 18px rgba(0,207,255,.48))}
+}
+@keyframes ghc-cyan-pulse{
+  0%,100%{filter:drop-shadow(0 0 5px #00dfff) drop-shadow(0 2px 3px rgba(0,0,0,.9))}
+  50%{filter:drop-shadow(0 0 15px #00eaff) drop-shadow(0 2px 3px rgba(0,0,0,.95))}
+}
+body.launching .center h1 .title-line{
+  animation-duration:.45s;
+  background-position:-100% 50%;
+  filter:drop-shadow(0 0 24px #00eaff) drop-shadow(0 2px 3px rgba(0,0,0,.9));
+}
+@media(prefers-reduced-motion:reduce){
+  .center h1,.center h1 .title-line{animation:none!important;filter:none}
+  .center h1 .title-line{opacity:1}
+}
+@media(max-width:600px){.top,.bottom{font-size:8px;letter-spacing:.1em}.brand img{width:36px;height:36px}.bottom span:nth-child(2){display:none}.telemetry{gap:18px}.metric strong{font-size:14px}.hint{bottom:66px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.kicker,h1,.subtitle,.actions,.telemetry{opacity:1}}
+
+
+/* GHC launch polish: crisp type, immediate warp, GPU-friendly overlay */
+.top,.bottom{color:#c9efff;text-shadow:0 0 10px #36bfff44}
+.subtitle{color:#e4f7ff;text-shadow:0 0 14px #2bbfff66}
+.metric small{color:#b7e4f5}
+.hint{color:#c7f3ff;text-shadow:0 0 14px #00cfff88}
+h1{ text-shadow:0 0 28px #00dfff55,0 0 75px #007bff55 }
+h1 span{color:#35eaff;text-shadow:0 0 22px #00e5ff,0 0 65px #007bff99}
+#transition{background:radial-gradient(circle at 50% 48%,#0877a8 0%,#062a49 22%,#030712 58%,#000 100%);transition:opacity 1.15s cubic-bezier(.2,.8,.2,1);clip-path:none;will-change:opacity}
+#transition.go{opacity:1}
+#transition:before,#transition:after{border:3px solid #72f5ff;box-shadow:0 0 24px #00cfff,0 0 70px #007bff,inset 0 0 35px #00cfff88;will-change:transform,opacity}
+#transition.go:before{animation:warpRing 2.15s cubic-bezier(.12,.8,.2,1) forwards}
+#transition.go:after{animation:warpRing 2.45s .18s cubic-bezier(.12,.8,.2,1) forwards}
+#transition .warp-label{color:#fff;text-shadow:0 0 12px #00e5ff,0 0 35px #007bff}
+@keyframes warpRing{0%{opacity:0;transform:translate(-50%,-50%) scale(.12)}12%{opacity:1}42%{opacity:.8}100%{opacity:0;transform:translate(-50%,-50%) scale(7.2)}}
+@keyframes warpText{0%{opacity:0;letter-spacing:.65em;filter:blur(5px)}35%{opacity:1;filter:blur(0)}100%{opacity:0;letter-spacing:.12em;filter:blur(2px)}}
+
+/* COMBINED LAUNCH SEQUENCE: HUD shutdown + pod acceleration + particle burst + portal */
+#transition{isolation:isolate}
+#transition .warp-grid{
+  position:absolute;inset:-35%;opacity:0;transform:perspective(500px) rotateX(66deg) scale(1.6);
+  background-image:linear-gradient(rgba(32,211,255,.17) 1px,transparent 1px),linear-gradient(90deg,rgba(32,211,255,.17) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse at center,#000 5%,transparent 72%);
+}
+#transition.go .warp-grid{animation:grid-rush 2.8s .05s cubic-bezier(.15,.75,.2,1) both}
+@keyframes grid-rush{
+  0%{opacity:0;transform:perspective(500px) rotateX(66deg) scale(.45) translateY(20%)}
+  18%{opacity:.8}
+  100%{opacity:0;transform:perspective(500px) rotateX(66deg) scale(2.8) translateY(45%)}
+}
+#transition .warp-core{
+  position:absolute;left:50%;top:50%;width:12vmin;height:12vmin;border-radius:50%;
+  transform:translate(-50%,-50%) scale(.05);
+  background:radial-gradient(circle,#fff 0%,#a8faff 10%,#00cfff 26%,rgba(0,115,255,.35) 52%,transparent 72%);
+  filter:blur(2px);opacity:0;
+}
+#transition.go .warp-core{animation:core-charge 2.65s .1s cubic-bezier(.12,.75,.18,1) both}
+@keyframes core-charge{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.05)}
+  22%{opacity:1;transform:translate(-50%,-50%) scale(.7)}
+  58%{opacity:.95;transform:translate(-50%,-50%) scale(2.4)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(8)}
+}
+#transition .warp-scan{
+  position:absolute;inset:0;opacity:0;
+  background:linear-gradient(transparent 46%,rgba(100,240,255,.42) 50%,transparent 54%);
+  transform:translateY(-120%);
+}
+#transition.go .warp-scan{animation:scan-pass 1.35s .35s ease-in-out both}
+@keyframes scan-pass{
+  0%{opacity:0;transform:translateY(-120%)}
+  20%{opacity:.9}
+  75%{opacity:.55}
+  100%{opacity:0;transform:translateY(120%)}
+}
+#transition .warp-status{
+  position:absolute;left:50%;top:calc(50% + 68px);transform:translateX(-50%);
+  display:flex;align-items:center;gap:12px;white-space:nowrap;
+  color:#a9eaff;font:600 9px 'JetBrains Mono',monospace;letter-spacing:.22em;
+  opacity:0;text-shadow:0 0 12px #00cfff;
+}
+#transition .warp-status strong{color:#fff}
+#transition .warp-status i{width:6px;height:6px;border-radius:50%;background:#55f7ff;box-shadow:0 0 12px #00eaff}
+#transition.go .warp-status{animation:status-flicker 2.2s .15s steps(1,end) both}
+@keyframes status-flicker{
+  0%,8%,17%,28%,100%{opacity:0}
+  10%,14%,20%,25%,35%,75%{opacity:1}
+}
+#transition.go .warp-label{animation:warpText 2.15s .2s forwards}
+body.launching .center h1 .title-line{
+  animation:heading-disintegrate 1.35s .45s cubic-bezier(.2,.7,.15,1) forwards!important;
+}
+@keyframes heading-disintegrate{
+  0%{opacity:1;filter:brightness(1.3);transform:translateY(0) scale(1);letter-spacing:inherit}
+  25%{opacity:1;filter:brightness(2.5) blur(0);transform:translateY(-3px) scale(1.025);letter-spacing:.04em}
+  100%{opacity:0;filter:brightness(3) blur(13px);transform:translateY(-24px) scale(1.12);letter-spacing:.24em}
+}
+body.launching .center .kicker,
+body.launching .center .subtitle,
+body.launching .center .actions,
+body.launching .center .telemetry{animation:interface-shutdown .8s .15s ease-in forwards}
+@keyframes interface-shutdown{
+  0%{opacity:1;filter:brightness(1)}
+  45%{opacity:1;filter:brightness(2)}
+  100%{opacity:0;filter:blur(7px);transform:translateY(-12px)}
 }
 
-#ghc-intro * { box-sizing: border-box; }
 
-#ghc-intro.exit {
-  opacity: 0;
-  transform: scale(1.12);
-  pointer-events: none;
+/* CINEMATIC FLOW PASS — overlapping motion, no expensive per-frame blur filters */
+#transition{backface-visibility:hidden;transform:translateZ(0)}
+#transition .warp-grid{background-size:42px 42px}
+#transition.go .warp-grid{animation:grid-rush 3.05s .02s cubic-bezier(.12,.72,.18,1) both}
+#transition.go .warp-core{animation:core-charge 3.0s .02s cubic-bezier(.12,.72,.18,1) both}
+#transition.go:before{animation:warpRing 2.8s cubic-bezier(.12,.72,.18,1) both !important}
+#transition.go:after{animation:warpRing 3.0s .12s cubic-bezier(.12,.72,.18,1) both !important}
+#transition.go .warp-scan{animation:scan-pass 1.8s .22s cubic-bezier(.2,.7,.15,1) both}
+#transition.go .warp-label{animation:warpText 2.7s .12s cubic-bezier(.2,.7,.15,1) forwards !important}
+#transition.go .warp-status{animation:status-flicker 2.65s .08s steps(1,end) both}
+body.launching #logo-particles{
+  animation:insignia-launch 2.55s .12s cubic-bezier(.16,.72,.16,1) forwards !important;
+  filter:none !important;
+}
+body.launching .ui{filter:none !important;will-change:transform,opacity}
+body.launching .center h1 .title-line{
+  animation:heading-disintegrate-smooth 2.05s .12s cubic-bezier(.16,.72,.16,1) forwards !important;
+}
+body.launching .center .kicker,
+body.launching .center .subtitle,
+body.launching .center .actions,
+body.launching .center .telemetry{
+  animation:interface-shutdown-smooth 1.55s .08s cubic-bezier(.16,.72,.16,1) forwards !important;
+}
+@keyframes insignia-launch{
+  0%{opacity:1;transform:translateX(-50%) scale(1)}
+  18%{opacity:1;transform:translateX(-50%) scale(1.08)}
+  72%{opacity:.72;transform:translateX(-50%) scale(1.7)}
+  100%{opacity:0;transform:translateX(-50%) scale(2.35)}
+}
+@keyframes heading-disintegrate-smooth{
+  0%{opacity:1;transform:translate3d(0,0,0) scale(1);letter-spacing:inherit}
+  22%{opacity:1;transform:translate3d(0,-5px,0) scale(1.025);letter-spacing:.025em}
+  58%{opacity:.82;transform:translate3d(0,-14px,0) scale(1.075);letter-spacing:.09em}
+  100%{opacity:0;transform:translate3d(0,-34px,0) scale(1.16);letter-spacing:.2em}
+}
+@keyframes interface-shutdown-smooth{
+  0%{opacity:1;transform:translate3d(0,0,0)}
+  38%{opacity:.9;transform:translate3d(0,-4px,0)}
+  100%{opacity:0;transform:translate3d(0,-24px,0)}
 }
 
-.ghc-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(#183b521b 1px, transparent 1px),
-    linear-gradient(90deg,#183b521b 1px,transparent 1px);
-  background-size: 55px 55px;
-  transform: perspective(500px) rotateX(15deg) scale(1.4);
-}
 
-.ghc-glow {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: #0876b51a;
-  filter: blur(100px);
-  pointer-events: none;
-  left: calc(50% + var(--mx, 0px));
-  top: calc(50% + var(--my, 0px));
-  transform: translate(-50%,-50%);
-}
+/* GHC HYPERDRIVE: cinematic environment and HUD */
+#transition{background:radial-gradient(ellipse at 50% 48%,#06334d 0%,#031425 34%,#010611 76%,#00030a 100%);overflow:hidden;isolation:isolate}
+#launch-cinema{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+#transition .warp-grid{z-index:1;opacity:.24}
+#transition .warp-core{z-index:2}
+#transition .cinema-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at center,transparent 22%,rgba(0,4,13,.3) 67%,rgba(0,2,8,.9) 100%)}
+#transition .cinema-crosshair{position:absolute;z-index:4;left:50%;top:50%;width:min(64vmin,620px);aspect-ratio:1;transform:translate(-50%,-50%);border:1px solid rgba(77,218,255,.2);border-radius:50%;pointer-events:none;animation:crosshair-turn 18s linear infinite}
+#transition .cinema-crosshair:before,#transition .cinema-crosshair:after{content:"";position:absolute;inset:8%;border:1px dashed rgba(76,212,255,.2);border-radius:50%}
+#transition .cinema-crosshair:after{inset:22%;border-style:solid;opacity:.7}
+#transition .cinema-crosshair i,#transition .cinema-crosshair b,#transition .cinema-crosshair em{position:absolute;left:50%;top:-5px;width:2px;height:10px;background:#7deaff;box-shadow:0 0 12px #00cfff}
+#transition .cinema-crosshair b{top:auto;bottom:-5px}
+#transition .cinema-crosshair em{left:-5px;top:50%;width:10px;height:2px}
+#transition .cinema-readout{position:absolute;z-index:5;top:8%;display:grid;gap:7px;color:#9deeff;font:10px/1.2 monospace;letter-spacing:.18em;text-shadow:0 0 12px #00aaff}
+#transition .cinema-readout-left{left:5%}
+#transition .cinema-readout-right{right:5%;text-align:right}
+#transition .cinema-readout strong{font-size:13px;color:#effcff;letter-spacing:.22em}
+#transition .cinema-readout small{font-size:9px;color:#5e9eb7}
+#transition .cinema-readout small b{color:#7df4ff}
+#transition .cinema-bottom{position:absolute;z-index:5;left:5%;right:5%;bottom:5%;display:flex;align-items:center;gap:18px;color:#74cce5;font:9px monospace;letter-spacing:.24em}
+#transition .cinema-bottom i{height:1px;flex:1;background:linear-gradient(90deg,transparent,#00cfff,transparent)}
+#transition .warp-label{z-index:7;text-shadow:0 0 22px #00cfff}
+#transition .warp-status{z-index:7}
+#transition.go .cinema-crosshair{animation:crosshair-collapse 4.05s cubic-bezier(.16,.72,.14,1) both}
+#transition.go .cinema-readout{animation:hud-eject 3.6s .35s cubic-bezier(.16,.72,.14,1) both}
+#transition.go .cinema-bottom{animation:hud-eject 3.4s .2s cubic-bezier(.16,.72,.14,1) both}
+@keyframes crosshair-turn{to{rotate:360deg}}
+@keyframes crosshair-collapse{0%{opacity:.75;scale:1;rotate:0deg}60%{opacity:.8;scale:1.3;rotate:100deg}100%{opacity:0;scale:2.8;rotate:190deg}}
+@keyframes hud-eject{0%{opacity:0;translate:0 12px}12%{opacity:1;translate:0 0}68%{opacity:.8;translate:0 -5px}100%{opacity:0;translate:0 -24px}}
+@media(max-width:650px){#transition .cinema-readout{top:5%;font-size:8px}#transition .cinema-readout-left{left:4%}#transition .cinema-readout-right{right:4%}#transition .cinema-bottom{font-size:7px;letter-spacing:.12em}}
 
-.ghc-top, .ghc-bottom {
-  position: absolute;
-  z-index: 5;
-  left: 5%;
-  right: 5%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #7795a8;
-}
-
-.ghc-top { top: 35px; }
-.ghc-bottom { bottom: 25px; }
-
-#ghc-status { color: var(--cyan); }
-
-.ghc-content {
-  position: relative;
-  z-index: 4;
-  text-align: center;
-  margin-top: 25px;
-  animation: ghcReveal 1.4s ease both;
-}
-
-.ghc-eyebrow {
-  font-size: 10px;
-  letter-spacing: 4px;
-  color: var(--cyan);
-  margin-bottom: 20px;
-}
-
-.ghc-dot {
-  display: inline-block;
-  height: 7px;
-  width: 7px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 15px var(--cyan);
-  margin-right: 9px;
-  animation: ghcPulse 1.2s infinite;
-}
-
-.ghc-content h1 {
-  font-size: clamp(35px, 7vw, 82px);
-  line-height: .94;
-  letter-spacing: -3px;
-  font-weight: 900;
-  margin: 0;
-  text-shadow: 0 0 35px #38bfff28;
-}
-
-.ghc-content h1 span {
-  color: var(--cyan);
-  text-shadow: 0 0 30px #1aaeff65;
-}
-
-.ghc-subtitle {
-  color: #8da5b6;
-  font-size: 11px;
-  line-height: 2;
-  letter-spacing: 2px;
-  margin-top: 22px;
-}
-
-.ghc-divider {
-  height: 1px;
-  width: 180px;
-  margin: 23px auto;
-  background: linear-gradient(90deg,transparent,var(--cyan),transparent);
-}
-
-.ghc-stats {
-  display: flex;
-  justify-content: center;
-  gap: 45px;
-  margin-bottom: 28px;
-}
-
-.ghc-stats div {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.ghc-stats strong {
-  font-size: 18px;
-  color: white;
-}
-
-.ghc-stats small {
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  color: #7795a8;
-}
-
-#ghc-enter {
-  display: inline-flex;
-  align-items: center;
-  gap: 30px;
-  padding: 15px 26px;
-  background: var(--cyan);
-  color: #00111c;
-  border: 0;
-  font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: .3s ease;
-  box-shadow: 0 0 25px #20caff35;
-}
-
-#ghc-enter:hover {
-  background: white;
-  transform: scale(1.08);
-  box-shadow: 0 0 45px #20caff85;
-}
-
-.ghc-arrow {
-  font-size: 22px;
-  transition: transform .3s;
-}
-
-#ghc-enter:hover .ghc-arrow { transform: translateX(7px); }
-
-.ghc-hint {
-  color: #597486;
-  font-size: 8px;
-  letter-spacing: 3px;
-  margin-top: 17px;
-}
-
-.ghc-tunnel {
-  position: absolute;
-  inset: 0;
-  perspective: 600px;
-  pointer-events: none;
-}
-
-.ghc-ring {
-  position: absolute;
-  width: 250px;
-  height: 150px;
-  border: 2px solid #1ebcfb65;
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  box-shadow: 0 0 20px #00aaff25;
-  animation: ghcTunnel 4s linear infinite;
-}
-
-.ring2 { animation-delay: -.65s; }
-.ring3 { animation-delay: -1.3s; }
-.ring4 { animation-delay: -1.95s; }
-.ring5 { animation-delay: -2.6s; }
-.ring6 { animation-delay: -3.25s; }
-
-@keyframes ghcTunnel {
-  0% { transform: translate(-50%,-50%) translateZ(-500px) scale(.2); opacity: 0; }
-  25% { opacity: .65; }
-  100% { transform: translate(-50%,-50%) translateZ(300px) scale(4); opacity: 0; }
-}
-
-.ghc-pod {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  opacity: .16;
-  animation: ghcPod 3s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 20px #30d9ff);
-}
-
-.ghc-engine {
-  position: absolute;
-  left: -90px;
-  top: 47%;
-  height: 7px;
-  width: 100px;
-  background: linear-gradient(90deg,transparent,#00d9ff);
-  filter: blur(6px);
-}
-
-@keyframes ghcPod {
-  from { margin-top: -8px; }
-  to { margin-top: 8px; }
-}
-
-.ghc-speed {
-  position: absolute;
-  width: 250px;
-  height: 1px;
-  background: linear-gradient(90deg,transparent,#31caff,transparent);
-  left: 50%;
-  top: 50%;
-  opacity: .5;
-  animation: ghcSpeed 1.5s linear infinite;
-}
-
-.speed1 { transform: translate(-50%,-100px); }
-.speed2 { transform: translate(-50%,100px); animation-delay: -.5s; }
-.speed3 { transform: translate(-50%,0); animation-delay: -1s; }
-
-@keyframes ghcSpeed {
-  from { opacity: 0; width: 50px; }
-  50% { opacity: .7; }
-  to { opacity: 0; width: 500px; }
-}
-
-@keyframes ghcReveal {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes ghcPulse {
-  50% { opacity: .3; }
-}
-
-@media(max-width:600px) {
-  .ghc-content { padding: 0 15px; }
-  .ghc-content h1 { letter-spacing: -1.5px; }
-  .ghc-stats { gap: 20px; }
-  .ghc-stats strong { font-size: 14px; }
-  .ghc-stats small { font-size: 7px; }
-  .ghc-top, .ghc-bottom { font-size: 7px; letter-spacing: 1px; }
-  .ghc-bottom span:nth-child(2) { display: none; }
-  .ghc-pod svg { width: 210px; }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  #ghc-intro *, #ghc-intro *::before {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
 </style>
-
+</head>
+<body>
+<canvas id="scene" aria-label="Animated 3D hyperloop tunnel"></canvas><canvas id="logo-particles" aria-hidden="true"></canvas><div class="vignette"></div><div class="scanlines"></div>
+<div class="ui">
+  <header class="top">
+    <div class="brand"><img src="assets/ghc-logo.png" alt="GHC"><span>GLOBAL HYPERLOOP<br>COMPETITION // IIT MADRAS</span></div>
+    <div class="live" id="system-status">SYSTEM ONLINE</div>
+  </header>
+  <main class="center">
+    <div class="kicker">A new era of mobility begins here</div>
+    <h1 aria-label="Global Hyperloop Competition">
+      <span class="title-line title-white">GLOBAL</span>
+      <span class="title-line title-cyan">HYPERLOOP</span>
+      <span class="title-line title-white">COMPETITION</span>
+    </h1>
+    <p class="subtitle">INNOVATION. INCLUSION. IMPLEMENTATION.<br>DISCOVERY CAMPUS · IIT MADRAS · INDIA</p>
+    <div class="actions">
+      <button id="enter">ENTER THE EXPERIENCE <span aria-hidden="true">↗</span></button>
+      <a class="secondary" href="home.html">SKIP INTRO</a>
+    </div>
+    <div class="telemetry">
+      <div class="metric"><strong>422 M</strong><small>TEST TRACK</small></div>
+      <div class="metric"><strong>GHC 3.0</strong><small>EDITION</small></div>
+      <div class="metric"><strong>2027</strong><small>COMPETITION</small></div>
+    </div>
+  </main>
+  <div class="hint">MOVE YOUR CURSOR TO STEER THE CAMERA · CLICK TO LAUNCH</div>
+  <footer class="bottom"><span>12.825° N / 80.198° E</span><span>THAIYUR · CHENNAI · INDIA</span><span id="telemetry">POD STATUS // STANDBY</span></footer>
+</div>
+<div id="loading"><div id="loadbar"></div></div>
+<div id="transition" aria-hidden="true">
+  <canvas id="launch-cinema"></canvas>
+  <div class="warp-grid"></div>
+  <div class="warp-core"></div>
+  <div class="warp-scan"></div>
+  <div class="cinema-vignette"></div>
+  <div class="cinema-crosshair"><i></i><b></b><em></em></div>
+  <div class="cinema-readout cinema-readout-left"><span>GHC // TRANSIT SYSTEM</span><strong>VACUUM CORRIDOR</strong><small>FIELD STABILITY <b>98.7%</b></small></div>
+  <div class="cinema-readout cinema-readout-right"><span>PROPULSION CORE</span><strong id="cinema-speed">0.00 C</strong><small>VECTOR LOCK <b>ENGAGED</b></small></div>
+  <div class="cinema-bottom"><span>CHENNAI · INDIA</span><i></i><span>HYPERLOOP INITIATIVE 2027</span></div>
+  <div class="warp-label">ENTERING GHC EXPERIENCE</div>
+  <div class="warp-status"><span>GHC HYPERDRIVE</span><strong>ENGAGING</strong><i></i></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (() => {
-  const intro = document.getElementById("ghc-intro");
-  if (!intro) return;
+ const canvas=document.getElementById('scene'), bar=document.getElementById('loadbar');
+ // Build the official insignia from light particles sampled from the supplied logo.
+ // It remains a lightweight 2D canvas effect and does not depend on WebGL.
+ const logoCanvas=document.getElementById('logo-particles');
+ const logoCtx=logoCanvas ? logoCanvas.getContext('2d') : null;
+ const logoImage=new Image(); logoImage.src='assets/ghc-logo.png';
+ let logoParticles=[], logoStart=performance.now(), logoFrame=0;
+ function initLogoParticles(){
+   try {
+   if(!logoCtx || !logoImage.naturalWidth) throw new Error('Logo image unavailable');
+   const box=logoCanvas.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,2);
+   logoCanvas.width=Math.round(box.width*dpr);logoCanvas.height=Math.round(box.height*dpr);
+   logoCtx.setTransform(dpr,0,0,dpr,0,0);
+   const sample=document.createElement('canvas'), sw=180, sh=180;
+   sample.width=sw;sample.height=sh;
+   const sc=sample.getContext('2d',{willReadFrequently:true});
+   sc.drawImage(logoImage,0,0,sw,sh);
+   const pixels=sc.getImageData(0,0,sw,sh).data, points=[];
+   // Skip the black image background; preserve the white mark and blue pod/globe.
+   for(let y=0;y<sh;y+=2)for(let x=0;x<sw;x+=2){
+     const i=(y*sw+x)*4,r=pixels[i],g=pixels[i+1],b=pixels[i+2];
+     if(Math.max(r,g,b)>78 && (r+g+b)>190){
+       points.push({x:(x/sw-.5)*box.width,y:(y/sh-.5)*box.height,
+         color:(b>r*1.18 && b>g*.92)?`rgba(37,190,255,`: `rgba(235,250,255,`});
+     }
+   }
+   // Deterministic thinning keeps the animation smooth on mid-range phones.
+   const stride=Math.max(1,Math.ceil(points.length/850));
+   logoParticles=points.filter((_,i)=>i%stride===0).map(pt=>({
+     ...pt,sx:(Math.random()-.5)*box.width*2,sy:(Math.random()-.5)*box.height*2,
+     size:1.05+Math.random()*1.15,phase:Math.random()*Math.PI*2
+   }));
+   logoStart=performance.now();
+   if(!logoFrame)drawLogoParticles();
+   } catch(error) {
+     // The logo effect is decorative: never let it prevent the intro from starting.
+     if(logoCanvas) logoCanvas.style.display='none';
+   }
+ }
+ function drawLogoParticles(){
+   logoFrame=requestAnimationFrame(drawLogoParticles);
+   const w=logoCanvas.clientWidth,h=logoCanvas.clientHeight;
+   if(!w||!h||!logoCtx)return;
+   const now=performance.now(),t=(now-logoStart)/1000;
+   logoCtx.clearRect(0,0,w,h);
+   const launch=document.body.classList.contains('launching');
+   const launchProgress=launch?Math.max(0,Math.min(1,(now-launchStarted-180)/2350)):0;
+   const smooth=launchProgress*launchProgress*(3-2*launchProgress);
+   const reveal=Math.min(1,t/1.5),revealEase=1-Math.pow(1-reveal,3);
 
-  const status = document.getElementById("ghc-status");
-  const enter = document.getElementById("ghc-enter");
+   // A single soft radial wash; individual particles are deliberately drawn
+   // without canvas shadowBlur (the old per-dot blur caused the launch stutter).
+   const halo=logoCtx.createRadialGradient(w/2,h/2,2,w/2,h/2,Math.min(w,h)*.5);
+   halo.addColorStop(0,launch?'rgba(0,220,255,.20)':'rgba(0,145,255,.12)');
+   halo.addColorStop(1,'rgba(0,40,90,0)');
+   logoCtx.fillStyle=halo;logoCtx.fillRect(0,0,w,h);
 
-  const messages = [
-    "SYSTEM INITIALIZING...",
-    "CALIBRATING VACUUM TUNNEL...",
-    "MAGNETIC LEVITATION ONLINE...",
-    "LAUNCH SYSTEM READY."
-  ];
+   // Draw particle trails in two batched paths, then the particle cores.
+   // The logo dissolves into a flowing spiral/warp rather than simply fading.
+   const colors=['rgba(70,210,255,','rgba(235,250,255,'];
+   for(let group=0;group<2;group++){
+     logoCtx.beginPath();
+     for(const p of logoParticles){
+       const isBlue=p.color.includes('37,190');
+       if((isBlue?0:1)!==group)continue;
+       const ox=p.x,oy=p.y;
+       const drift=Math.sin(t*1.25+p.phase)*.65;
+       const revealX=p.sx+(ox-p.sx)*revealEase+drift;
+       const revealY=p.sy+(oy-p.sy)*revealEase+Math.cos(t+p.phase)*.55;
+       const angle=p.phase+smooth*Math.PI*3.2;
+       const radius=smooth*(Math.min(w,h)*(.34+.38*((Math.sin(p.phase*2.7)+1)/2)));
+       const burstX=Math.cos(angle)*radius;
+       const burstY=Math.sin(angle)*radius;
+       const x=launch?revealX+(burstX-ox)*smooth:revealX;
+       const y=launch?revealY+(burstY-oy)*smooth:revealY;
+       if(launch&&launchProgress>.015){
+         const tail=5+smooth*28;
+         logoCtx.moveTo(w/2+x-Math.cos(angle)*tail,h/2+y-Math.sin(angle)*tail);
+         logoCtx.lineTo(w/2+x,h/2+y);
+       }
+     }
+     logoCtx.strokeStyle=group===0?'rgba(0,205,255,.36)':'rgba(225,250,255,.27)';
+     logoCtx.lineWidth=launch?1.1:0.7;logoCtx.stroke();
 
-  let step = 0;
+     logoCtx.beginPath();
+     for(const p of logoParticles){
+       const isBlue=p.color.includes('37,190');
+       if((isBlue?0:1)!==group)continue;
+       const ox=p.x,oy=p.y,drift=Math.sin(t*1.25+p.phase)*.65;
+       const rx=p.sx+(ox-p.sx)*revealEase+drift;
+       const ry=p.sy+(oy-p.sy)*revealEase+Math.cos(t+p.phase)*.55;
+       const angle=p.phase+smooth*Math.PI*3.2;
+       const radius=smooth*(Math.min(w,h)*(.34+.38*((Math.sin(p.phase*2.7)+1)/2)));
+       const x=launch?rx+(Math.cos(angle)*radius-ox)*smooth:rx;
+       const y=launch?ry+(Math.sin(angle)*radius-oy)*smooth:ry;
+       const alpha=launch?Math.max(0,1-Math.pow(launchProgress,.78))*(.72+.28*Math.sin(t*2+p.phase)):Math.min(1,t/.35)*(.72+.28*Math.sin(t*2+p.phase));
+       if(alpha<.015)continue;
+       const size=p.size*(launch?1+smooth*.7:1);
+       logoCtx.moveTo(w/2+x+size,h/2+y);
+       logoCtx.arc(w/2+x,h/2+y,size,0,Math.PI*2);
+     }
+     logoCtx.fillStyle=colors[group]+(launch?'.92':'.88')+')';
+     logoCtx.fill();
+   }
+   // Expanding energy rings: inexpensive strokes, synchronized with the particle
+   // spiral to bridge the dissolve directly into the portal reveal.
+   if(launch&&launchProgress<1){
+     const ringP=(launchProgress*1.45)%1;
+     logoCtx.beginPath();
+     logoCtx.arc(w/2,h/2,Math.min(w,h)*(.12+ringP*.72),0,Math.PI*2);
+     logoCtx.strokeStyle=`rgba(75,220,255,${(1-ringP)*.38})`;
+     logoCtx.lineWidth=1.4;logoCtx.stroke();
+   }
+ }
+ let launchStarted=0;
+ if(logoImage.complete && logoImage.naturalWidth) initLogoParticles();
+ else {
+   logoImage.addEventListener('load',initLogoParticles,{once:true});
+   logoImage.addEventListener('error',()=>{if(logoCanvas)logoCanvas.style.display='none';},{once:true});
+ }
+ addEventListener('resize',()=>{if(logoImage.complete&&logoImage.naturalWidth)initLogoParticles();});
 
-  const statusTimer = setInterval(() => {
-    step++;
-    status.textContent = messages[step] || messages[3];
-    if (step >= 3) clearInterval(statusTimer);
-  }, 850);
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ let renderer,scene,camera,pod,tubeGroup,clock,raf,mouseX=0,mouseY=0,launching=false,launchStart=0;
+ const status=document.getElementById('system-status'), tele=document.getElementById('telemetry');
+ function fallback(){
+   status.textContent='VISUAL SYSTEM // 2D FLIGHT MODE';bar.style.width='100%';
+   // Use a fresh canvas: a failed WebGL initialization can reserve the original canvas context.
+   const fallbackCanvas=document.createElement('canvas');fallbackCanvas.id='scene';canvas.replaceWith(fallbackCanvas);
+   const ctx=fallbackCanvas.getContext('2d'); if(!ctx) return;
+   let frame=0, w=0, h=0;
+   const resize2d=()=>{w=fallbackCanvas.width=innerWidth;h=fallbackCanvas.height=innerHeight;}; resize2d();
+   const stars=Array.from({length:150},()=>({x:Math.random(),y:Math.random(),z:Math.random()}));
+   function draw(){
+     if(!document.body.contains(fallbackCanvas)) return;
+     frame+=launching?.055:.012; ctx.fillStyle='#030712';ctx.fillRect(0,0,w,h);
+     const cx=w/2+(mouseX||0)*w*.035, cy=h/2+(mouseY||0)*h*.025;
+     const glow=ctx.createRadialGradient(cx,cy,10,cx,cy,Math.max(w,h)*.65);
+     glow.addColorStop(0,'#0a3650');glow.addColorStop(.55,'#061727');glow.addColorStop(1,'#030712');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
+     // Perspective tunnel ribs rushing toward the viewer.
+     for(let i=0;i<17;i++){
+       const p=((i/17+frame*.22)%1); const scale=.08+p*p*1.5;
+       const rw=w*.16*scale, rh=h*.19*scale;
+       ctx.strokeStyle=`rgba(25,195,245,${.12+p*.45})`;ctx.lineWidth=1+p*2;
+       ctx.shadowColor='#00cfff';ctx.shadowBlur=12;
+       ctx.beginPath();ctx.ellipse(cx,cy,rw,rh,0,0,Math.PI*2);ctx.stroke();
+     }
+     ctx.shadowBlur=0;
+     // Moving light particles.
+     for(const s of stars){s.z-=.006;if(s.z<=0)s.z=1;const k=(1-s.z)*1.5;
+       const x=cx+(s.x-.5)*w*k, y=cy+(s.y-.5)*h*k;
+       ctx.fillStyle=`rgba(105,225,255,${1-s.z})`;ctx.fillRect(x,y,1.5+k*2,1.5+k*2);
+     }
+     // Stylized pod silhouette in the centre.
+     const py=cy+Math.sin(frame*2)*5, pw=Math.min(210,w*.34);
+     ctx.save();ctx.translate(cx,py);ctx.shadowColor='#00dfff';ctx.shadowBlur=28;
+     ctx.fillStyle='#dff8ff';ctx.beginPath();ctx.moveTo(-pw*.55,0);ctx.quadraticCurveTo(-pw*.4,-22,pw*.2,-18);ctx.lineTo(pw*.48,-8);ctx.quadraticCurveTo(pw*.62,0,pw*.48,8);ctx.lineTo(-pw*.35,13);ctx.quadraticCurveTo(-pw*.55,10,-pw*.55,0);ctx.fill();
+     ctx.fillStyle='#06334c';ctx.fillRect(-pw*.12,-12,pw*.38,7);ctx.fillStyle='#00e5ff';ctx.fillRect(-pw*.35,10,pw*.78,2);
+     ctx.fillStyle='rgba(0,190,255,.65)';ctx.fillRect(-pw*.9,-3,pw*.35,3);ctx.restore();
+     requestAnimationFrame(draw);
+   }
+   draw(); addEventListener('resize',resize2d);
+ }
+ if(window.THREE){
+  try{
+   renderer=new THREE.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:'high-performance'});
+   renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.setSize(innerWidth,innerHeight);renderer.setClearColor(0x030712,1);
+   scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x030712,.018);
+   camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.1,1800);camera.position.set(0,0,4);
+   clock=new THREE.Clock();
+   scene.add(new THREE.HemisphereLight(0x9bdfff,0x07101e,1.2));
+   const key=new THREE.PointLight(0x00cfff,3,100);key.position.set(0,3,0);scene.add(key);
+   const blue=new THREE.PointLight(0x145bff,2,120);blue.position.set(5,-3,-30);scene.add(blue);
+   // Tunnel: repeated illuminated circular ribs
+   tubeGroup=new THREE.Group();scene.add(tubeGroup);
+   const ribMat=new THREE.MeshStandardMaterial({color:0x126b91,metalness:.8,roughness:.25,emissive:0x00334c,emissiveIntensity:1.2});
+   for(let i=0;i<34;i++){
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(7.2,.045,8,96),ribMat);
+    ring.position.z=-i*8;ring.scale.y=.78;tubeGroup.add(ring);
+    if(i%2===0){const strip=new THREE.Mesh(new THREE.BoxGeometry(.055, .055, 7.8),new THREE.MeshBasicMaterial({color:0x00cfff}));strip.position.set(0,7.05,-i*8-4);tubeGroup.add(strip);}
+   }
+   // tube guide rails
+   for(const x of [-2.5,2.5]){
+    const rail=new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,270,12),new THREE.MeshStandardMaterial({color:0x1c8db5,metalness:.8,roughness:.25,emissive:0x003a55}));
+    rail.rotation.x=Math.PI/2;rail.position.set(x,-2.5,-130);scene.add(rail);
+   }
+   // pod body
+   pod=new THREE.Group();scene.add(pod);
+   const body=new THREE.Mesh(new THREE.CylinderGeometry(.72,.72,3.8,32,1,false),new THREE.MeshPhysicalMaterial({color:0xe8f7ff,metalness:.72,roughness:.22,clearcoat:1,clearcoatRoughness:.12}));
+   body.rotation.x=Math.PI/2;body.scale.set(1,.72,1);pod.add(body);
+   const rearCap=new THREE.Mesh(new THREE.SphereGeometry(.72,24,16),new THREE.MeshPhysicalMaterial({color:0xd8f4ff,metalness:.65,roughness:.24}));rearCap.position.z=1.85;pod.add(rearCap);
+   const nose=new THREE.Mesh(new THREE.ConeGeometry(.78,1.7,32),new THREE.MeshPhysicalMaterial({color:0xbcefff,metalness:.65,roughness:.18,clearcoat:1}));
+   nose.rotation.x=-Math.PI/2;nose.position.z=-2.35;pod.add(nose);
+   const visor=new THREE.Mesh(new THREE.SphereGeometry(.58,24,12,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0x06243b,metalness:.8,roughness:.15,emissive:0x007da5,emissiveIntensity:.6}));
+   visor.rotation.x=Math.PI;visor.scale.set(1,.3,1.8);visor.position.set(0,.47,-.7);pod.add(visor);
+   const stripe=new THREE.Mesh(new THREE.BoxGeometry(1.5,.035,3.8),new THREE.MeshBasicMaterial({color:0x00dfff}));stripe.position.y=.48;pod.add(stripe);
+   const glow=new THREE.PointLight(0x00dfff,3,16);glow.position.set(0,0,2.4);pod.add(glow);
+   const exhaust=new THREE.Mesh(new THREE.ConeGeometry(.45,4,16),new THREE.MeshBasicMaterial({color:0x087fff,transparent:true,opacity:.22}));
+   exhaust.rotation.x=Math.PI/2;exhaust.position.z=3.3;pod.add(exhaust);
+   // drifting particles
+   const count=650,positions=new Float32Array(count*3);
+   for(let i=0;i<count;i++){positions[i*3]=(Math.random()-.5)*28;positions[i*3+1]=(Math.random()-.5)*18;positions[i*3+2]=-Math.random()*260;}
+   const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+   const stars=new THREE.Points(geo,new THREE.PointsMaterial({color:0x66dfff,size:.045,transparent:true,opacity:.8}));scene.add(stars);
+   function render(){
+    raf=requestAnimationFrame(render);const t=clock.getElapsedTime();
+    // Continuous travel: the tunnel and particle field loop forever instead of
+    // reaching a capped distance and freezing.
+    const baseTravel=reduce?0:t*24;
+    const launchBoost=launching?1+Math.min((performance.now()-launchStart)/650,10):1;
+    const travel=baseTravel*launchBoost;
+    camera.position.x+=(mouseX*1.5-camera.position.x)*.035;
+    camera.position.y+=(-mouseY*.8-camera.position.y)*.035;
+    camera.position.z+=(launching?-1.8:4-camera.position.z)* (launching?.045:.025);
+    camera.lookAt(mouseX*.5,mouseY*.25,-30);
+    pod.position.set(Math.sin(t*.7)*.12,Math.sin(t*1.2)*.09,-9+Math.sin(t*.45)*.35);
+    pod.rotation.z=Math.sin(t*.5)*.025;
+    tubeGroup.position.z=(travel%8);
+    stars.position.z=(travel%260);
+    key.intensity=2.3+Math.sin(t*3)*.5+(launching?2:0);
+    renderer.render(scene,camera);
+    bar.style.width=(launching?100:Math.min(100,(t/4)*100))+'%';
+    if(t>3.5){status.textContent=launching?'HYPERDRIVE // ENGAGED':'VACUUM TUNNEL // LIVE';tele.textContent=launching?'POD STATUS // ACCELERATING':'POD STATUS // LEVITATION ACTIVE';}
+   }
+   render();
+  }catch(e){fallback();}
+ }else fallback();
+ addEventListener('resize',()=>{if(renderer&&camera){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);}});
+ addEventListener('pointermove',e=>{mouseX=(e.clientX/innerWidth-.5)*2;mouseY=(e.clientY/innerHeight-.5)*2;});
 
-  // Interactive cursor glow
-  intro.addEventListener("pointermove", (e) => {
-    const x = (e.clientX / innerWidth - .5) * 70;
-    const y = (e.clientY / innerHeight - .5) * 70;
-    intro.style.setProperty("--mx", x + "px");
-    intro.style.setProperty("--my", y + "px");
-  });
+ // Full-screen GHC cinematic warp: a procedural star corridor, luminous rails,
+ // rotating orbital geometry, HUD ticks and a vortex of particles. No WebGL.
+ const cinema=document.getElementById('launch-cinema');
+ const cinemaCtx=cinema?cinema.getContext('2d',{alpha:true}):null;
+ let cinemaRAF=0, cinemaStart=0, cinemaW=0, cinemaH=0, cinemaDpr=1;
+ const cinemaStars=Array.from({length:190},()=>({
+   x:Math.random()*2-1,y:Math.random()*2-1,z:Math.random(),
+   speed:.25+Math.random()*.8,seed:Math.random()*Math.PI*2
+ }));
+ const cinemaDust=Array.from({length:145},()=>({
+   a:Math.random()*Math.PI*2,r:.12+Math.random()*.9,
+   speed:(.25+Math.random()*.85)*(Math.random()<.5?-1:1),
+   size:.5+Math.random()*1.6,phase:Math.random()*6.28
+ }));
+ function resizeCinema(){
+   if(!cinema||!cinemaCtx)return;
+   cinemaDpr=Math.min(devicePixelRatio||1,1.35);
+   cinemaW=innerWidth;cinemaH=innerHeight;
+   cinema.width=Math.round(cinemaW*cinemaDpr);
+   cinema.height=Math.round(cinemaH*cinemaDpr);
+   cinema.style.width=cinemaW+'px';cinema.style.height=cinemaH+'px';
+   cinemaCtx.setTransform(cinemaDpr,0,0,cinemaDpr,0,0);
+ }
+ function drawCinema(now){
+   if(!launching||!cinemaCtx)return;
+   const ctx=cinemaCtx,w=cinemaW,h=cinemaH,cx=w*.5,cy=h*.49;
+   const elapsed=(now-cinemaStart)/1000, p=Math.min(1,elapsed/4.15);
+   const ease=p*p*(3-2*p), acceleration=1+Math.pow(p,2.4)*13;
+   ctx.clearRect(0,0,w,h);
 
-  // Enter the existing website
-  function enterGHC() {
-    clearInterval(statusTimer);
-    intro.classList.add("exit");
+   // Deep blue-black atmosphere with a vivid reactor bloom.
+   const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.76);
+   bg.addColorStop(0,'rgba(0,92,142,.38)');
+   bg.addColorStop(.28,'rgba(0,34,67,.34)');
+   bg.addColorStop(.72,'rgba(0,8,22,.86)');
+   bg.addColorStop(1,'rgba(1,4,13,.98)');
+   ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
 
-    setTimeout(() => {
-      intro.remove();
-      document.body.style.overflow = "";
-    }, 1100);
-  }
+   // Perspective corridor: receding rings expand toward the viewer.
+   for(let i=0;i<13;i++){
+     const z=((i/13+elapsed*(.18+acceleration*.035))%1);
+     const scale=.025+z*z*1.38;
+     const rx=w*.12*scale,ry=h*.17*scale;
+     ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
+     ctx.strokeStyle=`rgba(${i%3===0?'105,235,255':'0,155,225'},${.08+z*.25})`;
+     ctx.lineWidth=.7+z*2.1;ctx.stroke();
+   }
 
-  enter.addEventListener("click", enterGHC);
+   // Twin magnetic guide rails with animated luminous dashes.
+   const railSpread=w*.43;
+   for(const side of [-1,1]){
+     ctx.beginPath();ctx.moveTo(cx+side*railSpread, h*1.12);ctx.lineTo(cx+side*w*.055,cy);
+     ctx.strokeStyle='rgba(0,190,255,.16)';ctx.lineWidth=15;ctx.stroke();
+     ctx.strokeStyle='rgba(55,225,255,.8)';ctx.lineWidth=2.2;ctx.stroke();
+     ctx.strokeStyle='rgba(210,250,255,.8)';ctx.lineWidth=.65;ctx.stroke();
+     for(let j=0;j<10;j++){
+       const q=(j/10+elapsed*(.22+acceleration*.04))%1;
+       const x=cx+side*(railSpread*(1-q)+w*.055*q);
+       const y=h*1.12*(1-q)+cy*q;
+       ctx.beginPath();ctx.arc(x,y,1+q*2.8,0,Math.PI*2);
+       ctx.fillStyle=`rgba(130,240,255,${.18+q*.75})`;ctx.fill();
+     }
+   }
 
-  // Escape key to skip
-  document.addEventListener("keydown", function skip(e) {
-    if (e.key === "Escape" && document.getElementById("ghc-intro")) {
-      enterGHC();
-      document.removeEventListener("keydown", skip);
-    }
-  });
+   // Radial warp streaks: all drawn as a single path batch.
+   ctx.beginPath();
+   for(let i=0;i<84;i++){
+     const a=(i/84)*Math.PI*2;
+     const inner=18+((i*37)%75), outer=Math.max(w,h)*(.18+((i*19)%100)/125);
+     const phase=(elapsed*(.55+acceleration*.08)+i*.137)%1;
+     const r1=inner+phase*outer*.28,r2=r1+outer*(.12+phase*.24);
+     ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);
+     ctx.lineTo(cx+Math.cos(a)*r2,cy+Math.sin(a)*r2);
+   }
+   ctx.strokeStyle='rgba(65,205,255,.28)';ctx.lineWidth=.8;ctx.stroke();
 
-  document.body.style.overflow = "hidden";
+   // Orbital rings and a segmented reactor halo.
+   for(let k=0;k<4;k++){
+     const radius=Math.min(w,h)*(.09+k*.075+Math.sin(elapsed*1.1+k)*.006);
+     ctx.beginPath();ctx.arc(cx,cy,radius,elapsed*(k%2?-.45:.35)+k,elapsed*(k%2?-.45:.35)+k+Math.PI*(1.45+k*.12));
+     ctx.strokeStyle=`rgba(${k===1?'190,250,255':'0,195,255'},${.42-k*.065})`;
+     ctx.lineWidth=k===0?2.2:1;ctx.stroke();
+   }
+
+   // Reactor core: layered pulses, not a flat empty backdrop.
+   const pulse=1+Math.sin(elapsed*4.5)*.055;
+   const coreR=Math.min(w,h)*(.075+.07*ease)*pulse;
+   const core=ctx.createRadialGradient(cx,cy,1,cx,cy,coreR*2.8);
+   core.addColorStop(0,'rgba(245,255,255,.96)');
+   core.addColorStop(.12,'rgba(95,235,255,.8)');
+   core.addColorStop(.42,'rgba(0,180,255,.28)');
+   core.addColorStop(1,'rgba(0,105,255,0)');
+   ctx.fillStyle=core;ctx.beginPath();ctx.arc(cx,cy,coreR*2.8,0,Math.PI*2);ctx.fill();
+
+   // Dust streams spiral around the core and then eject into the tunnel.
+   ctx.beginPath();
+   for(const d of cinemaDust){
+     const a=d.a+d.speed*elapsed*(.65+acceleration*.05);
+     const r=Math.min(w,h)*d.r*(.18+ease*.95);
+     const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r*.68;
+     ctx.moveTo(x,y);ctx.lineTo(x-Math.cos(a)*d.size*(2+acceleration*.8),y-Math.sin(a)*d.size*(2+acceleration*.8));
+   }
+   ctx.strokeStyle='rgba(100,225,255,.52)';ctx.lineWidth=.75;ctx.stroke();
+   for(const d of cinemaDust){
+     const a=d.a+d.speed*elapsed*(.65+acceleration*.05),r=Math.min(w,h)*d.r*(.18+ease*.95);
+     const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r*.68;
+     ctx.fillStyle=d.phase%2?'rgba(220,250,255,.9)':'rgba(0,205,255,.9)';
+     ctx.fillRect(x,y,d.size,d.size);
+   }
+
+   // Starfield accelerates toward the lens, with deterministic wraparound.
+   ctx.beginPath();
+   for(const star of cinemaStars){
+     const z=(star.z+elapsed*star.speed*(.08+acceleration*.11))%1;
+     const spread=.08+z*1.05;
+     const x=cx+star.x*w*.5*spread,y=cy+star.y*h*.5*spread;
+     const tail=(2+z*26)*Math.min(1,acceleration*.18);
+     ctx.moveTo(x-star.x*tail,y-star.y*tail);ctx.lineTo(x,y);
+   }
+   ctx.strokeStyle='rgba(150,230,255,.72)';ctx.lineWidth=1;ctx.stroke();
+
+   // Minimal technical HUD: corner brackets, target reticle and live telemetry.
+   const pad=Math.max(22,Math.min(w,h)*.045), len=34;
+   ctx.strokeStyle='rgba(50,210,255,.72)';ctx.lineWidth=1;
+   for(const [x,xx] of [[pad,1],[w-pad,-1]])for(const [y,yy] of [[pad,1],[h-pad,-1]]){
+     ctx.beginPath();ctx.moveTo(x,y+yy*len);ctx.lineTo(x,y);ctx.lineTo(x+xx*len,y);ctx.stroke();
+   }
+   ctx.beginPath();ctx.arc(cx,cy,Math.min(w,h)*(.22+ease*.08),0,Math.PI*2);
+   ctx.strokeStyle='rgba(60,210,255,.12)';ctx.stroke();
+   ctx.beginPath();ctx.moveTo(cx-18,cy);ctx.lineTo(cx-7,cy);ctx.moveTo(cx+7,cy);ctx.lineTo(cx+18,cy);
+   ctx.moveTo(cx,cy-18);ctx.lineTo(cx,cy-7);ctx.moveTo(cx,cy+7);ctx.lineTo(cx,cy+18);ctx.strokeStyle='rgba(210,250,255,.7)';ctx.stroke();
+
+   const speed=document.getElementById('cinema-speed');
+   if(speed)speed.textContent=(0.08+ease*9.92).toFixed(2)+' C';
+   cinemaRAF=requestAnimationFrame(drawCinema);
+ }
+ function startCinema(){
+   if(!cinemaCtx)return;
+   cancelAnimationFrame(cinemaRAF);resizeCinema();cinemaStart=performance.now();
+   cinemaRAF=requestAnimationFrame(drawCinema);
+ }
+ addEventListener('resize',resizeCinema,{passive:true});
+
+ function launchToHome(event){
+   if(event) event.preventDefault();
+   if(launching) return;
+   launching=true;launchStart=performance.now();launchStarted=performance.now();cinemaStart=launchStarted;
+   document.body.classList.add('launching');
+   status.textContent='HYPERDRIVE // ENGAGED';
+   tele.textContent='POD STATUS // ACCELERATING';
+   // Keep rendering during the launch so the tunnel visibly accelerates.
+   const overlay=document.getElementById('transition');
+   try{sessionStorage.setItem('ghc-arriving-from-intro','1');}catch(e){}
+   overlay.classList.add('go');startCinema();
+   // Full cinematic launch: let the HUD, particle burst, tunnel and portal sequence play.
+   setTimeout(()=>{cancelAnimationFrame(cinemaRAF);location.href='home.html';},4200);
+ }
+ document.getElementById('enter').addEventListener('click',launchToHome);
+ document.querySelector('.secondary').addEventListener('click',launchToHome);
 })();
 </script>
-<!-- ========== END GHC INTRO ========== -->
+</body></html>
