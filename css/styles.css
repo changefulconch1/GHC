@@ -1,0 +1,238 @@
+/* ==========================================================================
+   GHC HYPERLOOP - OFFICIAL LOGO AESTHETIC DESIGN SYSTEM
+   Colors Derived Directly from GHC Logo:
+   Electric Cyan #00e5ff, Radiant Azure Blue #0066ff, Stark White #ffffff, Jet Carbon #030712
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --ghc-cyan: #00e5ff;
+  --ghc-cyan-light: #70f4ff;
+  --ghc-blue: #0066ff;
+  --ghc-blue-dark: #0044cc;
+  --ghc-carbon: #030712;
+  --ghc-surface: rgba(6, 11, 24, 0.75);
+  --ghc-border: rgba(0, 229, 255, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--ghc-carbon);
+  color: #f1f5f9;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+::-webkit-scrollbar-thumb {
+  background: #0f172a;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00e5ff;
+}
+
+/* Typography Utility */
+.font-anton {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 0.04em;
+}
+.font-archivo {
+  font-family: 'Archivo', sans-serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* High-Impact Cyan & Blue Glows */
+.text-glow-cyan {
+  text-shadow: 0 0 16px rgba(0, 229, 255, 0.8), 0 0 35px rgba(0, 102, 255, 0.4);
+}
+.text-glow-white {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 30px rgba(0, 229, 255, 0.3);
+}
+
+/* Hazard Warning Stripes (Electric Cyan & Carbon) */
+.paddock-hazard-strip {
+  background: repeating-linear-gradient(
+    45deg,
+    #00e5ff 0,
+    #00e5ff 10px,
+    #040814 10px,
+    #040814 20px
+  );
+  border-right: 1px solid rgba(0, 229, 255, 0.3);
+}
+.paddock-hazard-horizontal {
+  background: repeating-linear-gradient(
+    -45deg,
+    #00e5ff 0,
+    #00e5ff 8px,
+    #040814 8px,
+    #040814 16px
+  );
+}
+
+/* Checkerboard Racing Accents */
+.auth-checker-strip {
+  background: repeating-conic-gradient(#f5f5f5 0 25%, transparent 0 50%) 0 0 / 10px 10px;
+}
+.checker-corner-subtle {
+  background: repeating-conic-gradient(rgba(0, 229, 255, 0.1) 0 25%, transparent 0 50%) 0 0 / 14px 14px;
+}
+
+/* VIP Paddock Pass Chamfered Frame (Logo Colors) */
+.paddock-pass-frame {
+  --cut: 20px;
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+  background: linear-gradient(145deg, rgba(0, 229, 255, 0.9), rgba(0, 102, 255, 0.6) 45%, rgba(0, 229, 255, 0.85));
+  padding: 1.5px;
+  box-shadow: 0 0 45px rgba(0, 229, 255, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.paddock-pass-inner {
+  --cut: 19px;
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+  background: linear-gradient(180deg, #070d1e 0%, #03060f 100%);
+  height: 100%;
+}
+
+/* Technical Card Angle Cut */
+.card-angled {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  background: rgba(7, 13, 26, 0.85);
+  backdrop-filter: blur(16px);
+  transition: all 0.25s ease;
+}
+.card-angled:hover {
+  border-color: rgba(0, 229, 255, 0.7);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 229, 255, 0.25);
+}
+
+/* Speed Beam Animation (Electric Cyan Sweep) */
+@keyframes sh-beam {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.animate-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00e5ff, #ffffff, #0066ff, transparent);
+  animation: sh-beam 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* F1 Telemetry Starting Lights (Cyan Active) */
+.f1-light-active {
+  background-color: #00e5ff;
+  box-shadow: 0 0 16px #00e5ff, 0 0 30px rgba(0, 229, 255, 0.8);
+}
+
+/* Supersonic Marquee Ticker */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 24s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* 3D Card Flip for VIP Paddock Pass */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Holographic Shimmer Effect (Blue & Cyan Foil) */
+.holo-shimmer {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 30%,
+    rgba(0, 229, 255, 0.25) 50%,
+    rgba(0, 102, 255, 0.2) 65%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 200%;
+  transition: background-position 0.4s ease;
+}
+.paddock-pass-frame:hover .holo-shimmer {
+  background-position: 100% 100%;
+}
+
+/* Technical Slanted Badge */
+.racing-chip {
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  background: rgba(0, 229, 255, 0.12);
+  border-top: 1px solid rgba(0, 229, 255, 0.7);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.7);
+}
+
+/* Floating Logo Orbit Animation */
+@keyframes logo-orbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-logo-orbit {
+  animation: logo-orbit 12s linear infinite;
+}
