@@ -325,6 +325,53 @@ body.launching #logo-particles{animation:insignia-launch 2.4s .12s cubic-bezier(
 #transition .cinema-crosshair,#transition .cinema-readout,#transition .cinema-bottom,
 #transition .warp-grid,#transition .warp-core,#transition .warp-scan{backface-visibility:hidden;transform:translateZ(0)}
 
+
+/* TITLE REVEAL: thousands of particles converge from beyond every screen edge. */
+#title-particle-reveal{
+  position:fixed;inset:0;width:100%;height:100%;
+  z-index:4;pointer-events:none;display:block;
+}
+body.title-particles-running .center h1{
+  opacity:1 !important;animation:none !important;filter:none !important;
+}
+body.title-particles-running .center h1 .title-line{
+  opacity:0 !important;animation:none !important;
+  background:none !important;color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  -webkit-text-stroke:0 !important;filter:none !important;
+  text-shadow:none !important;
+}
+body.title-particles-formed .center h1 .title-line{
+  opacity:1 !important;
+  transition:opacity .72s ease-out !important;
+  background:linear-gradient(180deg,#fff 0%,#f5f8fb 58%,#dce5eb 100%) !important;
+  -webkit-background-clip:text !important;background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  -webkit-text-stroke:.35px rgba(255,255,255,.28) !important;
+  filter:none !important;
+  animation:none !important;
+}
+body.title-particles-formed .center h1{filter:none !important;text-shadow:none !important}
+@media(prefers-reduced-motion:reduce){
+  #title-particle-reveal{display:none}
+  body.title-particles-running .center h1 .title-line{opacity:1 !important}
+}
+
+
+/* Hard override: every intro title line, including HYPERLOOP, stays white. */
+.center h1 .title-line,
+.center h1 .title-cyan,
+.center h1 .title-white{
+  background-image:linear-gradient(180deg,#fff 0%,#f5f8fb 58%,#dce5eb 100%) !important;
+  -webkit-text-fill-color:transparent !important;
+  -webkit-background-clip:text !important;background-clip:text !important;
+  -webkit-text-stroke:.35px rgba(255,255,255,.28) !important;
+  filter:none !important;
+  text-shadow:none !important;
+}
+body.title-particles-running .center h1 .title-line{opacity:0 !important}
+body.title-particles-formed .center h1 .title-line{opacity:1 !important}
+
 </style>
 
 <!-- Warm the destination page during the intro so navigation is not a cold load. -->
@@ -340,8 +387,8 @@ body.launching #logo-particles{animation:insignia-launch 2.4s .12s cubic-bezier(
 <link rel="prefetch" href="assets/ghc-logo.png" as="image">
 
 </head>
-<body>
-<canvas id="scene" aria-label="Animated 3D hyperloop tunnel"></canvas><canvas id="logo-particles" aria-hidden="true"></canvas><div class="vignette"></div><div class="scanlines"></div>
+<body><script>document.body.classList.add("title-particles-running");</script>
+<canvas id="scene" aria-label="Animated 3D hyperloop tunnel"></canvas><canvas id="logo-particles" aria-hidden="true"></canvas><canvas id="title-particle-reveal" aria-hidden="true"></canvas><div class="vignette"></div><div class="scanlines"></div>
 <div class="ui">
   <header class="top">
     <div class="brand"><img src="assets/ghc-logo.png" alt="GHC"><span>GLOBAL HYPERLOOP<br>COMPETITION // IIT MADRAS</span></div>
@@ -619,6 +666,142 @@ body.launching #logo-particles{animation:insignia-launch 2.4s .12s cubic-bezier(
  }else fallback();
  addEventListener('resize',()=>{if(renderer&&camera){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);}});
  addEventListener('pointermove',e=>{mouseX=(e.clientX/innerWidth-.5)*2;mouseY=(e.clientY/innerHeight-.5)*2;});
+
+
+ // ── Cinematic title formation: thousands of light motes arrive from all edges ──
+ (() => {
+   const canvas=document.getElementById('title-particle-reveal');
+   const ctx=canvas&&canvas.getContext('2d',{alpha:true});
+   const title=document.querySelector('.center h1');
+   if(!canvas||!ctx||!title){document.body.classList.add('title-particles-formed');return;}
+   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+   if(reduced){canvas.remove();document.body.classList.add('title-particles-formed');return;}
+
+   let width=innerWidth,height=innerHeight,dpr=1,raf=0,start=0,last=0,particles=[];
+   const maxParticles=6800,frameInterval=1000/40;
+   function sizeCanvas(){
+     width=innerWidth;height=innerHeight;dpr=1;
+     canvas.width=width;canvas.height=height;
+     canvas.style.width=width+'px';canvas.style.height=height+'px';
+     ctx.setTransform(1,0,0,1,0,0);
+   }
+   function randomEdgePoint(){
+     const side=Math.floor(Math.random()*4),pad=90+Math.random()*Math.max(width,height)*.55;
+     if(side===0)return {x:Math.random()*width,y:-pad};
+     if(side===1)return {x:width+pad,y:Math.random()*height};
+     if(side===2)return {x:Math.random()*width,y:height+pad};
+     return {x:-pad,y:Math.random()*height};
+   }
+   function buildTargets(){
+     sizeCanvas();
+     const off=document.createElement('canvas');
+     off.width=width;off.height=height;
+     const o=off.getContext('2d',{willReadFrequently:true});
+     const h1Style=getComputedStyle(title);
+     const lines=[...title.querySelectorAll('.title-line')];
+     o.clearRect(0,0,width,height);
+     o.fillStyle='#fff';o.textAlign='center';o.textBaseline='middle';
+     o.font=h1Style.font;
+     for(const line of lines){
+       const r=line.getBoundingClientRect();
+       const text=line.textContent.trim();
+       o.fillText(text,r.left+r.width/2,r.top+r.height/2,Math.max(1,r.width+20));
+     }
+     const data=o.getImageData(0,0,width,height).data,targets=[];
+     // Dense sampling gives the letters a solid, high-resolution particle silhouette.
+     for(let y=0;y<height;y+=3)for(let x=0;x<width;x+=3){
+       if(data[(y*width+x)*4+3]>70)targets.push({x,y});
+     }
+     const stride=Math.max(1,Math.ceil(targets.length/maxParticles));
+     particles=[];
+     for(let i=0;i<targets.length;i+=stride){
+       const target=targets[i],from=randomEdgePoint();
+       const dx=target.x-width/2,dy=target.y-height/2;
+       const distance=Math.hypot(dx,dy);
+       particles.push({
+         x:from.x,y:from.y,sx:from.x,sy:from.y,tx:target.x,ty:target.y,
+         delay:Math.random()*.9+(distance/Math.max(width,height))*.24,
+         duration:2.25+Math.random()*.85,
+         size:.65+Math.random()*1.05,
+         phase:Math.random()*Math.PI*2,
+         cyan:Math.random()<.17,
+         swirl:(Math.random()-.5)*.55
+       });
+     }
+   }
+   function easeOutQuint(x){return 1-Math.pow(1-x,5)}
+   function draw(now){
+     raf=requestAnimationFrame(draw);
+     if(now-last<frameInterval)return;
+     last=now;
+     const elapsed=(now-start)/1000;
+     ctx.clearRect(0,0,width,height);
+     // Fine streaks follow the incoming particles during the first half of the reveal.
+     ctx.beginPath();
+     for(let i=0;i<particles.length;i+=4){
+       const p=particles[i],q=Math.max(0,Math.min(1,(elapsed-p.delay)/p.duration));
+       if(q<=0||q>=.62)continue;
+       const e=easeOutQuint(q),x=p.sx+(p.tx-p.sx)*e,y=p.sy+(p.ty-p.sy)*e;
+       ctx.moveTo(x,y);
+       ctx.lineTo(x-(p.tx-p.sx)*.018*(1-q),y-(p.ty-p.sy)*.018*(1-q));
+     }
+     ctx.strokeStyle='rgba(115,225,255,.22)';ctx.lineWidth=.8;ctx.stroke();
+
+     // Batch all particle cores into two fills: bright white letters with cyan sparks.
+     ctx.beginPath();
+     for(const p of particles){
+       const q=Math.max(0,Math.min(1,(elapsed-p.delay)/p.duration));
+       if(q<=0)continue;
+       const e=easeOutQuint(q);
+       const arc=Math.sin(q*Math.PI)*p.swirl*42;
+       const x=p.sx+(p.tx-p.sx)*e+arc;
+       const y=p.sy+(p.ty-p.sy)*e-arc*.42;
+       const flicker=.82+.18*Math.sin(elapsed*5+p.phase);
+       const radius=p.size*(.72+.28*e);
+       ctx.moveTo(x+radius,y);
+       ctx.arc(x,y,radius,0,Math.PI*2);
+       p.drawX=x;p.drawY=y;p.alpha=flicker*(q>.92?Math.min(1,(1-q)*12):1);
+     }
+     ctx.fillStyle='rgba(238,250,255,.94)';ctx.fill();
+
+     ctx.beginPath();
+     for(const p of particles){
+       if(!p.cyan||p.alpha<=0)continue;
+       ctx.moveTo(p.drawX+p.size*1.25,p.drawY);
+       ctx.arc(p.drawX,p.drawY,p.size*1.25,0,Math.PI*2);
+     }
+     ctx.fillStyle='rgba(55,218,255,.92)';ctx.fill();
+
+     // Once the particle letters have fully formed, crossfade to razor-sharp typography.
+     if(elapsed>3.35&&!document.body.classList.contains('title-particles-formed')){
+       document.body.classList.add('title-particles-formed');
+     }
+     if(elapsed>4.55){
+       cancelAnimationFrame(raf);
+       canvas.style.transition='opacity .55s ease-out';canvas.style.opacity='0';
+       setTimeout(()=>canvas.remove(),600);
+     }
+   }
+   function beginTitleParticles(){
+     try{
+       buildTargets();
+       if(!particles.length)throw new Error('No title particle targets');
+       start=performance.now();last=0;
+       raf=requestAnimationFrame(draw);
+       // If a font/layout issue prevents the effect, keep the heading visible.
+       setTimeout(()=>{
+         if(!document.body.classList.contains('title-particles-formed')){
+           document.body.classList.add('title-particles-formed');
+         }
+       },5200);
+     }catch(err){
+       canvas.remove();document.body.classList.add('title-particles-formed');
+     }
+   }
+   const fontReady=(document.fonts&&document.fonts.ready)?document.fonts.ready:Promise.resolve();
+   Promise.race([fontReady,new Promise(resolve=>setTimeout(resolve,1100))]).then(()=>requestAnimationFrame(beginTitleParticles));
+   addEventListener('resize',()=>{if(!document.body.classList.contains('title-particles-formed')){cancelAnimationFrame(raf);beginTitleParticles();}},{passive:true});
+ })();
 
  // Full-screen GHC cinematic warp: a procedural star corridor, luminous rails,
  // rotating orbital geometry, HUD ticks and a vortex of particles. No WebGL.
